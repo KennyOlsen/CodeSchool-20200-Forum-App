@@ -7,7 +7,10 @@
     <title>Forum App</title>
 </head>
 <body>
-    
+    <div id="app">
+
+        <login-screen v-if="page == 'login'"></login-screen>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
