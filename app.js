@@ -17,8 +17,12 @@ Vue.component("login-screen", {
         }
     },
     methods: {
-        attemptLogin: function () {
-
+        attemptLogin: async function () {
+            let response = await fetch(URL + '/session', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            console.log(response);
         }
     }
 });
@@ -30,7 +34,7 @@ Vue.component('register-screen', {
         <input v-model="usernameInput" placeholder="Username">
         <input v-model="emailInput" placeholder="Email">
         <input v-model="passwordInput" placeholder="Password">
-        <button v-on:click="attemptLogin()">Login</button>
+        <button v-on:click="attemptLogin()">Register</button>
     </div>
     `,
     data: function () {
@@ -65,7 +69,19 @@ var app = new Vue({
                 method: 'GET',
                 credentials: 'include'
             });
-            console.log(response)
+            console.log(response);
+
+            if (response.status == 200) {
+                console.log("logged in");
+                let data = await response.json();
+                console.log("Data recieved from GET /session: " + data);
+            } else if (response.status == 401) {
+                console.log("Not logged in");
+                let data = await response.json();
+                console.log("Data recieved from GET /session: " + data);
+            } else {
+                console.log("Error: status not 200 or 401 when GETTING /session---" + response.status + response);
+            }
         }
     },
     created: function () {
