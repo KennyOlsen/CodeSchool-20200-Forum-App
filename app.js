@@ -18,10 +18,17 @@ Vue.component("login-screen", {
     },
     methods: {
         attemptLogin: async function () {
+            let loginCredentials = {username: this.emailInput, password: this.passwordInput};
+
             let response = await fetch(URL + '/session', {
                 method: 'POST',
+                body: JSON.stringify(loginCredentials),
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 credentials: 'include'
             });
+            
             console.log(response);
         }
     }
