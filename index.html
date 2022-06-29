@@ -12,7 +12,9 @@
 
         <login-screen v-if="page == 'login'"></login-screen>
 
-        <register-screen v-else></register-screen>
+        <register-screen v-else-if="page == 'register'"></register-screen>
+
+        <home-page v-else></home-page>
 
         <button v-on:click="changePage()">Switch Page</button>
     </div>
