@@ -28,8 +28,22 @@ Vue.component("login-screen", {
                 },
                 credentials: 'include'
             });
-            
+
+
             console.log(response);
+            if (response.status == 201) {
+                console.log("Created");
+                let data = await response.json();
+                console.log("Data recieved from GET /session: " + data);
+                this.emailInput = '';
+                this.passwordInput = '';
+            } else if (response.status == 401) {
+                console.log("Not logged in");
+                let data = await response.json();
+                console.log("Data recieved from GET /session: " + data);
+            } else {
+                console.log("Error: status not 200 or 401 when GETTING /session---" + response.status + response);
+            }
         }
     }
 });
