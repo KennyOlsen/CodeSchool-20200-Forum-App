@@ -56,8 +56,8 @@ Vue.component('register-screen', {
         <h2>Register</h2>
         <input v-model="usernameInput" placeholder="Username">
         <input v-model="emailInput" placeholder="Email">
-        <input v-model="passwordInput" placeholder="Password">
-        <button v-on:click="attemptLogin()">Register</button>
+        <input v-model="passwordInput" placeholder="Password" type="password">
+        <button v-on:click="createUser()">Create</button>
     </div>
     `,
     data: function () {
@@ -68,8 +68,39 @@ Vue.component('register-screen', {
         }
     },
     methods: {
-        attemptLogin: function () {
+        createUser: async function () {
+            if (this.usernameInput && this.emailInput && this.passwordInput){
+                let accountCredentials = {fullname: this.usernameInput, email: this.emailInput, password: this.passwordInput};
 
+                let response = await fetch(URL + '/users', {
+                    method: 'POST',
+                    body: JSON.stringify(accountCredentials),
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    credentials: 'include'
+                });
+
+                let body = await response.json();
+                console.log(body);
+
+                console.log(response);
+                if (response.status == 201) {
+                    console.log("Account created");
+
+                    this.usernameInput = '';
+                    this.emailInput = '';
+                    this.passwordInput = '';
+
+                    app.toLoginPage();
+                } else if (response.status == 401) {
+                    console.log("Account not created");
+                } else {
+                    console.log("Error: status not 200 or 401 when POSTING /users---" + response.status + response);
+                }
+            } else {
+                console.log("empty credentials");
+            }
         }
     }
 });
