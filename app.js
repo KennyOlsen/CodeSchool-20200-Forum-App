@@ -4,6 +4,7 @@ const URL = "https://forum2022.codeschool.cloud";
 Vue.component("login-screen", {
     template: `
     <div>
+        <h2>Login</h2>
         <input v-model="emailInput" placeholder="Email">
         <input v-model="passwordInput" placeholder="Password">
         <button v-on:click="attemptLogin()">Login</button>
@@ -25,6 +26,7 @@ Vue.component("login-screen", {
 Vue.component('register-screen', {
     template: `
     <div>
+        <h2>Register</h2>
         <input v-model="usernameInput" placeholder="Username">
         <input v-model="emailInput" placeholder="Email">
         <input v-model="passwordInput" placeholder="Password">
