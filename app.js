@@ -39,7 +39,7 @@ Vue.component("login-screen", {
                 this.emailInput = '';
                 this.passwordInput = '';
 
-                app.toLoginPage();
+                app.toLoggedInPage();
             } else if (response.status == 401) {
                 console.log("Login unsuccessful");
                 this.passwordInput = '';
@@ -92,7 +92,7 @@ Vue.component('register-screen', {
                     this.emailInput = '';
                     this.passwordInput = '';
 
-                    app.toLoginPage();
+                    app.toLoggedInPage();
                 } else if (response.status == 401) {
                     console.log("Account not created");
                 } else {
@@ -116,7 +116,7 @@ Vue.component('home-page', {
 var app = new Vue({
     el: "#app",
     data: {
-        page: 'login'
+        page: 'main'
     },
     methods: {
         changePage: function () {
@@ -128,8 +128,17 @@ var app = new Vue({
                 this.page = 'login';
             }
         },
-        toLoginPage: function () {
+        toLoggedInPage: function () {
             this.page = 'home';
+        },
+        toRegisterPage: function () {
+            this.page = 'register';
+        },
+        toLoginPage: function () {
+            this.page = 'login';
+        },
+        toMainPage: function () {
+            this.page = 'main';
         },
         getSession: async function () {
             let response = await fetch(`${URL}/session`, {
@@ -149,6 +158,8 @@ var app = new Vue({
             } else {
                 console.log("Error: status not 200 or 401 when GETTING /session---" + response.status + response);
             }
+
+            this.toMainPage();
         }
     },
     created: function () {
