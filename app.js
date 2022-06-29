@@ -70,9 +70,9 @@ Vue.component('register-screen', {
     methods: {
         createUser: async function () {
             if (this.usernameInput && this.emailInput && this.passwordInput){
-                let accountCredentials = {fullname: this.usernameInput, email: this.emailInput, password: this.passwordInput};
+                let accountCredentials = {fullname: this.usernameInput, username: this.emailInput, password: this.passwordInput};
 
-                let response = await fetch(URL + '/users', {
+                let response = await fetch(URL + '/user', {
                     method: 'POST',
                     body: JSON.stringify(accountCredentials),
                     headers: {
@@ -96,7 +96,7 @@ Vue.component('register-screen', {
                 } else if (response.status == 401) {
                     console.log("Account not created");
                 } else {
-                    console.log("Error: status not 200 or 401 when POSTING /users---" + response.status + response);
+                    console.log("Error: status not 200 or 401 when POSTING /user---" + response.status + response);
                 }
             } else {
                 console.log("empty credentials");
