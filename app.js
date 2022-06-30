@@ -12,25 +12,29 @@ Vue.component("login-screen", {
     `,
     data: function () {
         return {
-            emailInput: '',
-            passwordInput: '',
+            emailInput: "",
+            passwordInput: "",
         }
     },
     methods: {
         attemptLogin: async function () {
-            let loginCredentials = {username: this.emailInput, password: this.passwordInput};
+            let loginCredentials = {"username": this.emailInput, "password": this.passwordInput};
 
             let response = await fetch(URL + '/session', {
                 method: 'POST',
                 body: JSON.stringify(loginCredentials),
                 headers: {
-                    "Content-Type": "lication/json"
+                    "content-type": "application/json"
                 },
                 credentials: 'include'
             });
 
-            let body = await response.json();
-            console.log(body);
+            try {
+                let body = await response.json();
+                console.log(body);
+            } catch(error) {
+                console.error("json failed: " + error);
+            }
 
             console.log(response);
             if (response.status == 201) {
@@ -44,7 +48,7 @@ Vue.component("login-screen", {
                 console.log("Login unsuccessful");
                 this.passwordInput = '';
             } else {
-                console.log("Error: status not 200 or 401 when POSTING /session---" + response.status + response);
+                console.log("Error: status not 201 or 401 when POSTING /session---" + response.status + response);
             }
         }
     }
