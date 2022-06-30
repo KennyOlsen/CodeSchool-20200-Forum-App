@@ -113,14 +113,29 @@ Vue.component('home-page', {
     template: `
     <div>
         <h3>You are now logged in</h3>
+
     </div>
     `
+});
+
+Vue.component('thread', {
+    template: `
+    <div>
+        <h3> {{ thread.name }} </h3>
+        <h4> {{ thread.category }} </h4>
+        <p> {{ thread.description }} </p>
+    </div>
+    `,
+    props: [
+        'thread'
+    ]
 })
 
 var app = new Vue({
     el: "#app",
     data: {
-        page: 'main'
+        page: 'main',
+        threads: []
     },
     methods: {
         /*changePage: function () {
@@ -155,18 +170,31 @@ var app = new Vue({
                 console.log("logged in");
                 let data = await response.json();
                 console.log("Data recieved from GET /session: " + data);
+                this.toLoggedInPage();
             } else if (response.status == 401) {
                 console.log("Not logged in");
                 let data = await response.json();
                 console.log("Data recieved from GET /session: " + data);
+                this.toMainPage();
             } else {
                 console.log("Error: status not 200 or 401 when GETTING /session---" + response.status + response);
+                this.toMainPage();
             }
+        },
+        getThreads: async function () {
+            let response = await fetch(URL + "/thread", {
+                method: "GET",
+                credentials: 'include'
+            });
 
-            this.toMainPage();
+            let answer = await response.json();
+
+            console.log(answer);
+            this.threads = answer;
         }
     },
     created: function () {
         this.getSession();
+        this.getThreads();
     }
 });
