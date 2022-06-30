@@ -118,7 +118,41 @@ Vue.component('home-page', {
     `
 });
 
-Vue.component('thread', {
+Vue.component('thread-input', {
+    template: `
+    <div>
+        name: <input v-model="name">
+        description: <input v-model="description">
+        category: <input v-model="category">
+        <button v-on:click="submitThread()">Submit</button>
+        <h2 v-show="warningShown">One or more inputs are empty</h2>
+    </div>
+    `,
+    data: function () {
+        return {
+            name: '',
+            description: '',
+            category: '',
+            warningShown: false
+        }
+    },
+    methods: {
+        submitThread: function () {
+            let thread = {"name": this.name, "description": this.description, "category": this.category};
+
+            if (this.name && this.description && this.category) {
+                app.createThread(thread);
+            } else {
+                warningShown = true;
+                setTimeout(() => {
+                    warningShown = false;
+                }, 3000);
+            }
+        }
+    }
+})
+
+Vue.component('listed-thread', {
     template: `
     <div>
         <h3> {{ thread.name }} </h3>
@@ -135,7 +169,8 @@ var app = new Vue({
     el: "#app",
     data: {
         page: 'main',
-        threads: []
+        threads: [],
+        addingThread: false
     },
     methods: {
         /*changePage: function () {
@@ -191,6 +226,23 @@ var app = new Vue({
 
             console.log(answer);
             this.threads = answer;
+        },
+        startAddThread: function () {
+            this.addingThread = true;
+        },
+        createThread: async function (thread) {
+            let response = await fetch(URL + "/thread", {
+                method: 'POST',
+                body: JSON.stringify(thread),
+                headers: {
+                    "content-type": "application/json"
+                },
+                credentials: 'include'
+            });
+
+            let answer = response.json();
+
+            console.log(answer);
         }
     },
     created: function () {
