@@ -119,7 +119,7 @@ var app = new Vue({
         page: 'main'
     },
     methods: {
-        changePage: function () {
+        /*changePage: function () {
             if (this.page == 'login') {
                 this.page = 'register';
             } else if (this.page == 'register') {
@@ -127,7 +127,7 @@ var app = new Vue({
             } else {
                 this.page = 'login';
             }
-        },
+        },*/
         toLoggedInPage: function () {
             this.page = 'home';
         },
