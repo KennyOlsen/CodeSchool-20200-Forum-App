@@ -24,7 +24,7 @@ Vue.component("login-screen", {
                 method: 'POST',
                 body: JSON.stringify(loginCredentials),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "lication/json"
                 },
                 credentials: 'include'
             });
