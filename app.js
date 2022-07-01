@@ -154,7 +154,7 @@ Vue.component('thread-input', {
 
 Vue.component('listed-thread', {
     template: `
-    <div v-on:click="showPosts()">
+    <div v-on:click="getPosts()">
         <h3> {{ thread.name }} </h3>
         <h5> ({{ thread.category }}) </h5>
         <p> {{ thread.description }} </p>
@@ -164,17 +164,29 @@ Vue.component('listed-thread', {
         'thread'
     ],
     methods: {
-        showPosts: function () {
-            app.showPosts(this.thread);
+        getPosts: function () {
+            app.getPosts(this.thread);
         }
     }
-})
+});
+
+Vue.component('listed-post', {
+    template: `
+    <div>
+        <h2> {{ post.body }} </h2>
+    </div>
+    `,
+    props: [
+        'post'
+    ]
+});
 
 var app = new Vue({
     el: "#app",
     data: {
         page: 'main',
         threads: [],
+        posts: [],
         addingThread: false
     },
     methods: {
@@ -253,8 +265,7 @@ var app = new Vue({
 
             console.log(answer);
         },
-        showPosts: async function (thread) {
-            console.log("thread clicked: " + thread);
+        getPosts: async function (thread) {
             let id = thread._id;
 
             let response = await fetch(URL + "/thread/" + id, {
@@ -262,12 +273,22 @@ var app = new Vue({
                 credentials: 'include'
             });
 
+            let answer = '';
             try {
-                let answer = await response.json(); 
+                answer = await response.json(); 
                 console.log(answer.posts);
             } catch (error) {
                 console.log("Thread not found" , error);
             }
+
+            console.log(answer);
+
+            this.showPosts(answer.posts);
+        },
+        showPosts: function (posts) {
+            this.page = 'posts';
+            this.posts = posts;
+            console.log("posts logged: " + this.post);
         }
     },
     created: function () {

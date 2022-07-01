@@ -29,6 +29,10 @@
             <listed-thread v-for="(thread, index) in threads" v-bind:key="index" v-bind:thread="thread" class="thread"></listed-thread>
         </div>
 
+        <div v-show="page == 'posts'">
+            <listed-post v-for="(post, index) in posts" v-bind:key="index + 100" v-bind:post="post"></listed-post>
+        </div>
+
         <button v-show="page == 'login' || page == 'register'" v-on:click="toMainPage()">Back to home</button>
 
     </div>
