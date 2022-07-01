@@ -246,6 +246,22 @@ var app = new Vue({
             let answer = response.json();
 
             console.log(answer);
+        },
+        showPosts: async function (thread) {
+            console.log("thread clicked");
+            let id = thread._id;
+
+            let response = await fetch(URL + "/thread/" + id, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            try {
+                let answer = await response.json(); 
+                console.log(answer);
+            } catch (error) {
+                console.log("Thread not found" , error);
+            }
         }
     },
     created: function () {

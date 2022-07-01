@@ -21,12 +21,12 @@
             <register-screen v-else-if="page == 'register'"></register-screen>
         </div>
 
-        <div v-if="page == 'home'">
+        <div>
             <home-page></home-page>
             <button v-on:click="startAddThread()" v-if="!addingThread">Add Thread</button>
             <button v-on:click="cancelAddThread()" v-else>Cancel</button>
             <thread-input v-show="addingThread" id="thread-input"></thread-input>
-            <listed-thread v-for="(thread, index) in threads" v-bind:key="index" v-bind:thread="thread" class="thread"></listed-thread>
+            <listed-thread v-for="(thread, index) in threads" v-bind:key="index" v-bind:thread="thread" class="thread" v-on:click="showPosts(thread)" v-if="page == 'home'"></listed-thread>
         </div>
 
         <button v-show="page == 'login' || page == 'register'" v-on:click="toMainPage()">Back to home</button>
