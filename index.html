@@ -23,8 +23,9 @@
 
         <div v-if="page == 'home'">
             <home-page></home-page>
-            <button v-on:click="startAddThread()">Add Thread</button>
-            <thread-input v-show="addingThread"></thread-input>
+            <button v-on:click="startAddThread()" v-if="!addingThread">Add Thread</button>
+            <button v-on:click="cancelAddThread()" v-else>Cancel</button>
+            <thread-input v-show="addingThread" id="thread-input"></thread-input>
             <listed-thread v-for="(thread, index) in threads" v-bind:key="index" v-bind:thread="thread" class="thread"></listed-thread>
         </div>
 

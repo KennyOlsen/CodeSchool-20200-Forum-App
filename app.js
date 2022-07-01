@@ -112,7 +112,7 @@ Vue.component('register-screen', {
 Vue.component('home-page', {
     template: `
     <div>
-        <h3>You are now logged in</h3>
+        <h3 style="color: black;">You are now logged in</h3>
 
     </div>
     `
@@ -229,6 +229,9 @@ var app = new Vue({
         },
         startAddThread: function () {
             this.addingThread = true;
+        },
+        cancelAddThread: function () {
+            this.addingThread = false;
         },
         createThread: async function (thread) {
             let response = await fetch(URL + "/thread", {

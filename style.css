@@ -15,8 +15,8 @@ h3, h5 {
 
 #app #main {
     grid-column: 2 / 3;
-    grid-row: 2 / 4;
-    background-color: darkblue;
+    grid-row: 1 / 2;
+    background-color: rgb(15, 166, 158);
 }
 
 #app div {
@@ -36,7 +36,24 @@ h3, h5 {
     color: black;
 }
 
-.thread {
+#thread-input {
+    color: black;
+}
+
+#app div .thread {
     width: 100%;
-    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    background-color:rgb(15, 166, 158);
+}
+
+.thread h3, .thread h5, .thread p {
+    margin-left: 2%;
+}
+
+#app div .thread:hover {
+    background-color: lightblue;
+    color: black;
+    border: 1px dotted black;
 }
