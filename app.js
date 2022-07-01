@@ -154,7 +154,7 @@ Vue.component('thread-input', {
 
 Vue.component('listed-thread', {
     template: `
-    <div>
+    <div v-on:click="showPosts()">
         <h3> {{ thread.name }} </h3>
         <h5> ({{ thread.category }}) </h5>
         <p> {{ thread.description }} </p>
@@ -162,7 +162,12 @@ Vue.component('listed-thread', {
     `,
     props: [
         'thread'
-    ]
+    ],
+    methods: {
+        showPosts: function () {
+            app.showPosts(this.thread);
+        }
+    }
 })
 
 var app = new Vue({
@@ -228,6 +233,7 @@ var app = new Vue({
             this.threads = answer;
         },
         startAddThread: function () {
+            console.log("Create thread ran");
             this.addingThread = true;
         },
         cancelAddThread: function () {
@@ -248,7 +254,7 @@ var app = new Vue({
             console.log(answer);
         },
         showPosts: async function (thread) {
-            console.log("thread clicked");
+            console.log("thread clicked: " + thread);
             let id = thread._id;
 
             let response = await fetch(URL + "/thread/" + id, {
@@ -258,7 +264,7 @@ var app = new Vue({
 
             try {
                 let answer = await response.json(); 
-                console.log(answer);
+                console.log(answer.posts);
             } catch (error) {
                 console.log("Thread not found" , error);
             }
