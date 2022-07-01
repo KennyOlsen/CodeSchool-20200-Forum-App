@@ -57,3 +57,17 @@ h3, h5 {
     color: black;
     border: 1px dotted black;
 }
+
+.post {
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    background-color:rgb(15, 166, 158);
+}
+
+.post:hover {
+    background-color: lightblue;
+    color: black;
+    border: 1px dotted black;
+}

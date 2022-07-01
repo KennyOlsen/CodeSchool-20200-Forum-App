@@ -30,7 +30,7 @@
         </div>
 
         <div v-show="page == 'posts'">
-            <listed-post v-for="(post, index) in posts" v-bind:key="index + 100" v-bind:post="post"></listed-post>
+            <listed-post v-for="(post, index) in posts" v-bind:key="index + 100" v-bind:post="post" class="post"></listed-post>
         </div>
 
         <button v-show="page == 'login' || page == 'register'" v-on:click="toMainPage()">Back to home</button>

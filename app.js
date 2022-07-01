@@ -174,6 +174,7 @@ Vue.component('listed-post', {
     template: `
     <div>
         <h2> {{ post.body }} </h2>
+        <p> -{{ post.user.fullname }} </p>
     </div>
     `,
     props: [
