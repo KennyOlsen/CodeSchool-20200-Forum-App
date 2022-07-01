@@ -281,14 +281,11 @@ var app = new Vue({
                 console.log("Thread not found" , error);
             }
 
-            console.log(answer);
-
             this.showPosts(answer.posts);
         },
         showPosts: function (posts) {
             this.page = 'posts';
             this.posts = posts;
-            console.log("posts logged: " + this.post);
         }
     },
     created: function () {
