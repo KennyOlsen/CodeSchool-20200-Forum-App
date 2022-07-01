@@ -10,14 +10,18 @@
 <body>
     <div id="app">
 
-        <button v-on:click="toLoginPage()" v-show="page == 'main'">Login</button>
-        <button v-on:click="toRegisterPage()" v-show="page == 'main'">Register</button>
+        <div id="main">
+            <button v-on:click="toLoginPage()" v-show="page == 'main'">Login</button>
+            <button v-on:click="toRegisterPage()" v-show="page == 'main'">Register</button>
+        </div>
 
-        <login-screen v-if="page == 'login'"></login-screen>
+        <div>
+            <login-screen v-if="page == 'login'"></login-screen>
 
-        <register-screen v-else-if="page == 'register'"></register-screen>
+            <register-screen v-else-if="page == 'register'"></register-screen>
+        </div>
 
-        <div v-else-if="page == 'home'">
+        <div v-if="page == 'home'">
             <home-page></home-page>
             <button v-on:click="startAddThread()">Add Thread</button>
             <thread-input v-show="addingThread"></thread-input>

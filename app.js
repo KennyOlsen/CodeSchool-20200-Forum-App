@@ -156,7 +156,7 @@ Vue.component('listed-thread', {
     template: `
     <div>
         <h3> {{ thread.name }} </h3>
-        <h4> {{ thread.category }} </h4>
+        <h5> ({{ thread.category }}) </h5>
         <p> {{ thread.description }} </p>
     </div>
     `,
