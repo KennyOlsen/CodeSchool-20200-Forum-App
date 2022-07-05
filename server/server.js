@@ -2,6 +2,9 @@ const express = require('express');
 const { User } = require('../model');
 const app = express();
 
+const cors = require('cors');
+app.use(cors());
+
 app.use(express.static(`${__dirname}/public/`));
 app.use(express.json());
 
@@ -25,6 +28,10 @@ app.post("/users", async (request, response) => {
             error: err
         });
     }
+});
+
+app.post("/thread", (request, response) => {
+
 });
 
 module.exports = app;
