@@ -1,6 +1,6 @@
 const inputs = {
     user: "kennyOlsen",
-    password: "mong)DB123"
+    password: "kenny)LSEN123"
 }
 
 
