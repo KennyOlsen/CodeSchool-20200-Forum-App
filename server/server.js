@@ -1,11 +1,11 @@
 const express = require('express');
-const { User } = require('./model');
+const { User } = require('../model');
 const app = express();
 
 app.use(express.static(`${__dirname}/public/`));
 app.use(express.json());
 
-app.post("/user", async (request, response) => {
+app.post("/users", async (request, response) => {
     try {
         let user = await User.create ({
             username: request.body.username,
@@ -16,7 +16,7 @@ app.post("/user", async (request, response) => {
     } catch (err) {
         response.status(400).json({
             message: 'post request failed to create user',
-            error: error
+            error: err
         });
     }
 });
