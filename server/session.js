@@ -1,23 +1,13 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const {User} = require("../model");
+const session = require('express-session');
 
-passport.use(new LocalStrategy(async (username, password, done) => {
-    let user;
-    try {
-        //try to find user
-        user = await User.findOne({
-            "username":username,
-            "password": password
-        });
-        //if user doesn't exist
-        if (!user) {
-            return done(null, false);
-        }
-        //succeeded
-        return done(null, user)
-    } catch (err) {
-        //if error finding user
-        return done(err);
-    }
-}));
+const setupSessionsStore = function (app) {
+    app.use(
+        session({
+            secret: 'crazyKarl',
+            resave: false,
+            saveUninitialized: false
+        })
+    );
+};
+
+module.exports = setupSessionsStore;

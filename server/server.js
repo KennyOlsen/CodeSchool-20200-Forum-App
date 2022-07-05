@@ -5,6 +5,12 @@ const app = express();
 app.use(express.static(`${__dirname}/public/`));
 app.use(express.json());
 
+const setupSessionsStore = require('./session');
+const setupAuth = require('./auth');
+
+setupSessionsStore(app);
+setupAuth(app);
+
 app.post("/users", async (request, response) => {
     try {
         let user = await User.create ({
