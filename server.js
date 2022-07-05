@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.post("/user", async (request, response) => {
     try {
-        await User.create ({
+        let user = await User.create ({
             username: request.body.username,
             fullname: request.body.fullname,
             password: request.body.password
