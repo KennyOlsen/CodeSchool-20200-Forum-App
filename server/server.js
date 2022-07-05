@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../model');
+const { User, Thread} = require('../model');
 const app = express();
 
 const cors = require('cors');
@@ -30,7 +30,27 @@ app.post("/users", async (request, response) => {
     }
 });
 
-app.post("/thread", (request, response) => {
+app.post("/thread", async (request, response) => {
+    //authenticate
+    if (!request.user) {
+        response.status(401).json({message: "unauthenticated"});
+        return
+    }
+    //create with await + try/catch
+    try {
+        let thread = await Thread.create({
+            user_id: request.user.id,
+            name: request.body.name,
+            description: request.body.description,
+            category: request.body.category
+        });
+        response.status(201).json(thread);
+    } catch (err) {
+        response.status(500).json({
+            message: "could not create thread",
+            error: err
+        });
+    }
 
 });
 
