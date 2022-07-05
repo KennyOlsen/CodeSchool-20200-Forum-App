@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "express": "^4.18.1"
-  }
+  },
+  "name": "forum-app",
+  "description": "Mine",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KennyOlsen/CodeSchool-20200-Forum-App.git"
+  },
+  "author": "Kenny Olsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KennyOlsen/CodeSchool-20200-Forum-App/issues"
+  },
+  "homepage": "https://github.com/KennyOlsen/CodeSchool-20200-Forum-App#readme"
 }
