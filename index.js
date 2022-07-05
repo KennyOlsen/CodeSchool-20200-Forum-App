@@ -1,7 +1,21 @@
-const app = require('/server');
+const inputs = {
+    user: "kennyOlsen",
+    password: "mong)DB123"
+}
 
-const {connect, onConnect} = require("/mongo");
 
-app.listen(808, () => {
-    console.log("server running on port 8080");
-})
+const app = require('./server');
+
+const {connect, onConnect} = require("./mongo");
+
+onConnect(() => {
+    app.listen(8080, () => {
+        console.log("server running on port 8080");
+    });
+});
+
+try {
+    connect(inputs.user, inputs.password);
+} catch(err) {
+    console.log("error connecting to mongo---" + err);
+}

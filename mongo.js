@@ -1,13 +1,16 @@
-const mongoose = requite('mongoose');
+const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-function connect(user, password, host, port, db) {
-    const connectionString = `mongodb+srv://${user}:${password}@${host}/?retryWrites=true&w=majority`;
-
-    mongoose.connect(connectionString, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
+async function connect(user, password) {
+    //const connectionString = `mongodb+srv://${user}:${password}@${host}:${port}/${db_name}`;
+    const connectionString = `mongodb+srv://${user}:${password}@cluster0.ywnlx6p.mongodb.net/?retryWrites=true&w=majority`;
+    try {
+        await mongoose.connect(connectionString, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true})
+    } catch (err) {
+        console.log("mongo connect function, error connecting to mongoose---" + err);
+    };
 };
 
 
@@ -21,5 +24,5 @@ function onConnect(callback) {
 
 module.exports = {
     connect: connect,
-    onConnect
+    onConnect: onConnect
 };
