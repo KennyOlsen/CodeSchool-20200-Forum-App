@@ -1,3 +1,10 @@
+const URL = "https://api.funtranslations.com/translate/shakespeare.json"
+
+const express = require("express");
+const app = express();
+
+//const fetch = require("node-fetch");
+
 const translate = require("./translate.json");
 
 //changes matching words to other words
@@ -16,6 +23,15 @@ const translateWords = function(input) {
             description += words[word] + " ";
         }
     }
+
+    /*let parsed = "?text=" + encodeURIComponent(input);
+    console.log(parsed);
+
+    let response = await fetch(URL + parsed)
+    let answer = await response.json()
+    console.log("answer: " + answer);
+
+    let description = answer["contents"]["translated"];*/
 
     return description
 };
