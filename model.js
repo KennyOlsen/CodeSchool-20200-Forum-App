@@ -51,14 +51,6 @@ const threadSchema = mongoose.Schema({
 
 const Thread = mongoose.model("Thread", threadSchema);
 
-
-/*threadSchema.pre("save", () => {
-    this.name = "I am Groot";
-    this.description = "I am Groot";
-    this.category = "I am Groot";
-    next();
-})*/
-
 module.exports = {
     User,
     Thread,

@@ -5,6 +5,8 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 
+const translateWords = require("./translate.js");
+
 app.use(express.static(`${__dirname}/public/`));
 app.use(express.json());
 
@@ -118,13 +120,14 @@ app.post("/thread", async (req, res) => {
     }
     // create with await + try/catch
     try {
-        console.log(req.user);
+        let description = translateWords(req.body.description);
         let thread = await Thread.create({
             user_id: req.user.id,
             name: req.body.name,
-            description: req.body.description,
+            description: description,
             category: req.body.category
         });
+
         res.status(201).json(thread);
     } catch (err) {
         res.status(500).json({
