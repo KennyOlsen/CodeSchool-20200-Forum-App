@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Thread} = require('../model');
+const { User, Thread, Post} = require('../model');
 const app = express();
 
 const cors = require('cors');
@@ -30,7 +30,7 @@ app.post("/users", async (req, res) => {
     }
   });
   
-  app.get("/thread/:id", async (req, res) => {
+app.get("/thread/:id", async (req, res) => {
     // implement me :)
     // no authentication needed a.k.a. authorization is public/open
     let thread;
@@ -79,7 +79,7 @@ app.post("/users", async (req, res) => {
     res.status(200).json(thread);
   });
   
-  app.get("/threads", async (req, res) => {
+app.get("/threads", async (req, res) => {
     // no authentication needed a.k.a. authorization is public/open
     let threads;
     // get the threads and omit the posts)
@@ -110,31 +110,32 @@ app.post("/users", async (req, res) => {
     res.status(200).json(threads);
   });
   
-  app.post("/thread", async (req, res) => {
+app.post("/thread", async (req, res) => {
     // auth
     if (!req.user) {
-      res.status(401).json({ message: "unauthed" });
-      return;
+        res.status(401).json({ message: "unauthed" });
+        return;
     }
     // create with await + try/catch
     try {
-      let thread = await Thread.create({
-        user_id: req.user.id,
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category,
-      });
-      res.status(201).json(thread);
+        console.log(req.user);
+        let thread = await Thread.create({
+            user_id: req.user.id,
+            name: req.body.name,
+            description: req.body.description,
+            category: req.body.category
+        });
+        res.status(201).json(thread);
     } catch (err) {
-      res.status(500).json({
-        message: "could not create thread",
-        error: err,
-      });
-      return;
+        res.status(500).json({
+            message: "could not create thread",
+            error: err,
+        });
+        return;
     }
-  });
+});
   
-  app.delete("/thread/:id", async (req, res) => {
+app.delete("/thread/:id", async (req, res) => {
     // check if authed
     if (!req.user) {
       res.status(401).json({ mesage: "unauthenticated" });
@@ -185,7 +186,7 @@ app.post("/users", async (req, res) => {
     res.status(200).json(thread);
   });
   
-  app.post("/post", async (req, res) => {
+app.post("/post", async (req, res) => {
     // check auth
     if (!req.user) {
       res.status(401).json({ message: "unauthed" });
@@ -233,7 +234,7 @@ app.post("/users", async (req, res) => {
     res.status(201).json(thread.posts[thread.posts.length - 1]);
   });
   
-  app.delete("/thread/:thread_id/post/:post_id", async (req, res) => {
+app.delete("/thread/:thread_id/post/:post_id", async (req, res) => {
     // check auth
     if (!req.user) {
         res.status(401).json({ message: "unauthed" });

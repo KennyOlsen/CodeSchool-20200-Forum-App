@@ -13,7 +13,6 @@ const userSchema = mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-
 const postSchema = mongoose.Schema(
     {
       user_id: {
@@ -21,7 +20,7 @@ const postSchema = mongoose.Schema(
         ref: "User",
         required: true,
       },
-      body: { type: String, required: true, default: "" },
+      body: { type: String, required: true, default: "I am Groot" },
       thread_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Thread",
@@ -33,16 +32,15 @@ const postSchema = mongoose.Schema(
 
 const Post = mongoose.model("Post", postSchema);
 
-
 const threadSchema = mongoose.Schema({
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
         },
-        name: {type: String, required: true, default: ""},
-        description: {type: String, required: true, default: ""},
-        posts: {type: [postSchema], required: true, default: {}},
+        name: {type: String, required: true, default: "I am Groot"},
+        description: {type: String, required: true, default: "I am Groot"},
+        posts: {type: [postSchema], required: false, default: []},
         category: {type: String, required: true, default: ""}
     },
     {
@@ -52,6 +50,14 @@ const threadSchema = mongoose.Schema({
 );
 
 const Thread = mongoose.model("Thread", threadSchema);
+
+
+/*threadSchema.pre("save", () => {
+    this.name = "I am Groot";
+    this.description = "I am Groot";
+    this.category = "I am Groot";
+    next();
+})*/
 
 module.exports = {
     User,
