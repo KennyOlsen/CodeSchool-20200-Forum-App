@@ -120,7 +120,7 @@ app.post("/thread", async (req, res) => {
     }
     // create with await + try/catch
     try {
-        let description = translateWords(req.body.description);
+        let description = translateWords(req.body.description.toLowerCase());
         let thread = await Thread.create({
             user_id: req.user.id,
             name: req.body.name,
